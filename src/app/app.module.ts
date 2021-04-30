@@ -15,18 +15,23 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatListModule} from '@angular/material/list';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 import { BankListService } from './services/bank-list.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TransferenciaComponent } from './transferencia/transferencia.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddDestinatarioComponent
+    AddDestinatarioComponent,
+    TransferenciaComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatListModule,
+    ScrollingModule,
 
     FormsModule,
     ReactiveFormsModule

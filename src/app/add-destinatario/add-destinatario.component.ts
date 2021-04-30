@@ -116,6 +116,9 @@ export class AddDestinatarioComponent implements OnInit {
       verticalPosition:'top'
     });
   }
+  onKeyPressCharcodes(event:any){
+    return event.charCode >= 48 && event.charCode <= 57
+  }
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */

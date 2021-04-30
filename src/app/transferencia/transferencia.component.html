@@ -1,0 +1,51 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Transferir</h1>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-grid-list cols="4" rowHeight="80px" >
+            <mat-grid-tile colspan="2">
+                <mat-form-field  appearance="outline" class="example-full-width">
+                    <mat-label>Buscar Destinatario </mat-label>
+                    <input [(ngModel)]='busqueda' (keyup)="buscarDestinatario()" matInput placeholder="Ej. Juan">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile  colspan="2" rowspan="4">
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                    <mat-selection-list *ngIf="destinatarios.length>0" [(ngModel)]='destinatarioId' [multiple]="false">
+                        <mat-list-option (click)="getDestinatario(dest._id)" *ngFor="let dest of destinatarios" [value]="dest._id">
+                          <mat-label>{{dest.nombre}}</mat-label>
+                          <p>{{getBankName(dest.bank_id)}}</p>
+                          <p>{{dest.tipo_cuenta}}</p>
+                        </mat-list-option>
+                      </mat-selection-list>
+                  </cdk-virtual-scroll-viewport>
+                
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="3">
+                <p style="margin-bottom: auto; margin-right: auto;" [innerHtml]="datos"></p>
+            </mat-grid-tile>
+            <form [formGroup]="transferenciaForm">
+
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Monto</mat-label>
+                        <input onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="monto" type="number" matInput placeholder="Ej. 30000">
+                        <mat-error *ngIf="transferenciaForm.controls.monto.hasError('min') && !transferenciaForm.controls.monto.hasError('required')">
+                          Ingrese un monto mayor a 0
+                        </mat-error>
+                        <mat-error *ngIf="transferenciaForm.controls.monto.hasError('required')">
+                          Monto es <strong>requerido</strong>
+                        </mat-error>
+                      </mat-form-field>
+                </mat-grid-tile>
+            </form>
+        </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions style="flex: 1 1 auto;">
+        <button [disabled]="transferenciaForm.invalid || destinatarioId==''" mat-button (click)="transferir()">Transferir</button>
+    </mat-card-actions>
+</mat-card>

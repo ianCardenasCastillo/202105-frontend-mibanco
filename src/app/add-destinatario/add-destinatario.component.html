@@ -12,7 +12,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Rut </mat-label>
-                        <input formControlName="rut" matInput placeholder="Ej. 11111111-1">
+                        <input formControlName="rut" [errorStateMatcher]="matcher" matInput placeholder="Ej. 11111111-1">
                         <mat-error *ngIf="destinatarioForm.controls.rut.hasError('pattern') && !destinatarioForm.controls.rut.hasError('required')">
                             Formato de rut invalido. Ej: 11111111-4
                         </mat-error>
@@ -25,7 +25,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Nombre </mat-label>
-                        <input formControlName="nombre" matInput placeholder="Ej. Ian">
+                        <input formControlName="nombre" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [errorStateMatcher]="matcher" matInput placeholder="Ej. Ian">
                         <mat-error *ngIf="destinatarioForm.controls.nombre.hasError('minlength') && !destinatarioForm.controls.nombre.hasError('required')">
                             El nombre debe contener minimo 3 caracteres.
                         </mat-error>
@@ -51,7 +51,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Telefono </mat-label>
-                        <input formControlName="telefono" matInput placeholder="Ej. +56981856548">
+                        <input formControlName="telefono" [errorStateMatcher]="matcher"  matInput placeholder="Ej. +56981856548">
                         <mat-error *ngIf="destinatarioForm.controls.telefono.hasError('pattern') && !destinatarioForm.controls.telefono.hasError('required')">
                             Formato de telefono invalido. Ej: +56981856548
                         </mat-error>
@@ -63,7 +63,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" appearance="fill">
                         <mat-label>Seleccione Banco </mat-label>
-                        <mat-select formControlName="banco" [(value)]="destinatario.bank_id">
+                        <mat-select formControlName="banco" [errorStateMatcher]="matcher" [(value)]="destinatario.bank_id">
                             <mat-option *ngFor="let bank of banks" [value]="bank.id">
                                 {{bank.name}}
                             </mat-option>
@@ -76,7 +76,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="fill">
                         <mat-label>Tipo de Cuenta </mat-label>
-                        <mat-select formControlName="tipo" [(value)]="destinatario.tipo_cuenta">
+                        <mat-select formControlName="tipo" [errorStateMatcher]="matcher" [(value)]="destinatario.tipo_cuenta">
                             <mat-option *ngFor="let tipo of tipos" [value]="tipo._id">
                                 {{tipo.nombre}}
                             </mat-option>
@@ -89,7 +89,7 @@
                 <mat-grid-tile>
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>N° De Cuenta </mat-label>
-                        <input type="number" formControlName="cuenta" matInput placeholder="Ej. 10012516662">
+                        <input type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' [errorStateMatcher]="matcher" formControlName="cuenta" matInput placeholder="Ej. 10012516662">
                         <mat-error *ngIf="destinatarioForm.controls.cuenta.hasError('pattern') && !destinatarioForm.controls.cuenta.hasError('required')">
                             Solo numeros. Ej: 10012516662
                         </mat-error>

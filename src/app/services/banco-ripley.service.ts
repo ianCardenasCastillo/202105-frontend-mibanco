@@ -21,4 +21,15 @@ export class BancoRipleyService {
       observe:'response'
     });
   }
+  getDestinatarios(busqueda:string){
+    return this.http.get(this.baseLink+'api/v1/destinatario?nombre='+busqueda,{observe:'response'})
+  }
+  postTransferencia(data:any){
+    return this.http.post(this.baseLink+'api/v1/transferencia',data,{
+      headers:{
+        'content-type':'application/json'
+      },
+      observe:'response'
+    });
+  }
 }
