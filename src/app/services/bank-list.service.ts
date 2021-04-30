@@ -10,7 +10,7 @@ export class BankListService {
   constructor(public http: HttpClient) { }
 
   getBanks(){
-    return this.http.get(this.baseLink+'api/banks.php');
+    return this.http.get(this.baseLink+'api/banks.php',{observe:'response'});
   }
 
 }

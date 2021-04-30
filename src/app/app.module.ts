@@ -13,6 +13,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 import { BankListService } from './services/bank-list.service';
@@ -36,7 +40,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    MatSnackBarModule,
+
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [BankListService],
   bootstrap: [AppComponent]

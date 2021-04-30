@@ -1,0 +1,107 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Nuevo Destinatario</h1>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="banks">
+        <form class="example-form" [formGroup]="destinatarioForm">
+
+            <mat-grid-list cols="2" rowHeight="100px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Rut </mat-label>
+                        <input formControlName="rut" matInput placeholder="Ej. 11111111-1">
+                        <mat-error *ngIf="destinatarioForm.controls.rut.hasError('pattern') && !destinatarioForm.controls.rut.hasError('required')">
+                            Formato de rut invalido. Ej: 11111111-4
+                        </mat-error>
+                        <mat-error *ngIf="destinatarioForm.controls.rut.hasError('required')">
+                            Rut es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Nombre </mat-label>
+                        <input formControlName="nombre" matInput placeholder="Ej. Ian">
+                        <mat-error *ngIf="destinatarioForm.controls.nombre.hasError('minlength') && !destinatarioForm.controls.nombre.hasError('required')">
+                            El nombre debe contener minimo 3 caracteres.
+                        </mat-error>
+                        <mat-error *ngIf="destinatarioForm.controls.nombre.hasError('required')">
+                            Nombre es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Correo </mat-label>
+                        <input formControlName="correo" [errorStateMatcher]="matcher" matInput placeholder="Ej. micorreo@gmail.com">
+                        <mat-error *ngIf="destinatarioForm.controls.correo.hasError('email') && !destinatarioForm.controls.correo.hasError('required')">
+                            Porfavor ingresar un correo valido
+                        </mat-error>
+                        <mat-error *ngIf="destinatarioForm.controls.correo.hasError('required')">
+                            Correo es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Telefono </mat-label>
+                        <input formControlName="telefono" matInput placeholder="Ej. +56981856548">
+                        <mat-error *ngIf="destinatarioForm.controls.telefono.hasError('pattern') && !destinatarioForm.controls.telefono.hasError('required')">
+                            Formato de telefono invalido. Ej: +56981856548
+                        </mat-error>
+                        <mat-error *ngIf="destinatarioForm.controls.telefono.hasError('required')">
+                            Telefono es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" appearance="fill">
+                        <mat-label>Seleccione Banco </mat-label>
+                        <mat-select formControlName="banco" [(value)]="destinatario.bank_id">
+                            <mat-option *ngFor="let bank of banks" [value]="bank.id">
+                                {{bank.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="destinatarioForm.controls.tipo.hasError('required')">
+                            Banco de destino es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipo de Cuenta </mat-label>
+                        <mat-select formControlName="tipo" [(value)]="destinatario.tipo_cuenta">
+                            <mat-option *ngFor="let tipo of tipos" [value]="tipo._id">
+                                {{tipo.nombre}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="destinatarioForm.controls.tipo.hasError('required')">
+                            Tipo de cuenta es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>N° De Cuenta </mat-label>
+                        <input type="number" formControlName="cuenta" matInput placeholder="Ej. 10012516662">
+                        <mat-error *ngIf="destinatarioForm.controls.cuenta.hasError('pattern') && !destinatarioForm.controls.cuenta.hasError('required')">
+                            Solo numeros. Ej: 10012516662
+                        </mat-error>
+                        <mat-error *ngIf="destinatarioForm.controls.cuenta.hasError('required')">
+                            El N° de cuenta es <strong>requerido</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card-content>
+    <mat-card-actions style="flex: 1 1 auto;">
+        <button [disabled]="destinatarioForm.invalid" (click)="guardarDestinatario()" mat-button>Crear</button>
+    </mat-card-actions>
+</mat-card>
