@@ -1,16 +1,13 @@
-<mat-toolbar color="primary" style="align-items: center; justify-content: center;">
-  <div >
-      <span >Mi Banco - Nueva Transferencia</span>
+<mat-toolbar color="primary" >
+  <div class="div-title">
+    <span>Mi Banco - Nueva Transferencia</span>
   </div>
-  <div></div>
-  <section>
-      <div class="example-button-row">
-        <button mat-raised-button routerLink="/destinatarios">Nuevo Destinatario</button>
-        <button mat-raised-button routerLink="/transferencia">Transferir</button>
-        <button mat-raised-button>Historial</button>
-      </div>
-    </section>
-  
+  <div class="button-row div-buttons">
+    <button mat-raised-button routerLink="/destinatarios">Nuevo Destinatario</button>
+    <button mat-raised-button routerLink="/transferencia">Transferir</button>
+    <button mat-raised-button routerLink="/historial">Historial</button>
+  </div>
+
 </mat-toolbar>
 
-<router-outlet ></router-outlet>
+<router-outlet></router-outlet>

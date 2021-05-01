@@ -1,0 +1,38 @@
+<div class="div-title-page">
+    <h1 class="h1-title-page">Historial</h1>
+</div>
+<table mat-table [dataSource]="transferencias" matSort class="mat-elevation-z8">
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre destinatario </th>
+        <td mat-cell *matCellDef="let element"> {{element.destinatario.nombre}} </td>
+    </ng-container>
+
+    <!-- Rut Column -->
+    <ng-container matColumnDef="rut">
+        <th mat-header-cell *matHeaderCellDef> Rut </th>
+        <td mat-cell *matCellDef="let element"> {{element.destinatario.rut}} </td>
+    </ng-container>
+
+    <!-- Banco Column -->
+    <ng-container matColumnDef="banco_id">
+        <th mat-header-cell *matHeaderCellDef> Banco </th>
+        <td mat-cell *matCellDef="let element"> {{obtenerNombreBanco(element.destinatario.bankId) | uppercase }} </td>
+    </ng-container>
+
+    <!-- Tipo de cuenta Column -->
+    <ng-container matColumnDef="tipo_cuenta">
+        <th mat-header-cell *matHeaderCellDef> Tipo de cuenta </th>
+        <td mat-cell *matCellDef="let element"> {{element.destinatario.tipoCuenta.nombre}} </td>
+    </ng-container>
+
+    <!-- Monto Column -->
+    <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef> Monto </th>
+        <td mat-cell *matCellDef="let element"> {{element.monto | currency:'CLP':'symbol-narrow'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+</table>
