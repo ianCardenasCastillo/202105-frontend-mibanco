@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddDestinatarioComponent } from './add-destinatario/add-destinatario.component';
 import { PageNotFoundComponent } from './helpers/page-not-found.component';
 import { HistorialComponent } from './historial/historial.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 import { TransferenciaComponent } from './transferencia/transferencia.component';
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'historial',
     component: HistorialComponent
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent
   },
   {
     path: '**',

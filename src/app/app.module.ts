@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TransferenciaComponent } from './transferencia/transferencia.component';
 import { HistorialComponent } from './historial/historial.component';
 import { PageServerErrorComponent } from './helpers/page-server-error.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { PageServerErrorComponent } from './helpers/page-server-error.component'
     AddDestinatarioComponent,
     TransferenciaComponent,
     HistorialComponent,
-    PageServerErrorComponent
+    PageServerErrorComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,

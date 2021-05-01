@@ -36,4 +36,7 @@ export class BancoRipleyService {
   getTransferencias(): Observable<any> {
     return this.http.get(this.baseLink + 'api/v1/transferencia', { observe: 'response' });
   }
+  postLogin(data:any): Observable<any>{
+    return this.http.post(this.baseLink + 'api/v1/login', data, { observe: 'response' })
+  }
 }

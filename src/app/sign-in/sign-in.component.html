@@ -1,0 +1,31 @@
+<div class="sign-in">
+    <div class="div-title-page" >
+        <h1 class="h1-title-page">Inicio Sesión</h1>
+    </div>
+    <mat-card class="card">
+        <form [formGroup]="singinForm">
+            <mat-card-content>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Rut </mat-label>
+                    <input formControlName="rut" type="text" matInput placeholder="Ej. 11.111.111-1">
+                    <mat-error *ngIf="singinForm.controls.rut.hasError('pattern') && !singinForm.controls.rut.hasError('required')">
+                        Formato de rut invalido. Ej: 11.111.111-4
+                    </mat-error>
+                    <mat-error *ngIf="singinForm.controls.rut.hasError('required')">
+                        Rut es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Password </mat-label>
+                    <input formControlName="password" type="text" matInput>
+                    <mat-error *ngIf="singinForm.controls.password.hasError('required')">
+                        Password es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+            </mat-card-content>
+        </form>
+        <mat-card-actions class="mat-card-action-center" >
+            <button [disabled]="singinForm.invalid" (click)="login()" mat-raised-button class="button-width-50">Ingresar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
