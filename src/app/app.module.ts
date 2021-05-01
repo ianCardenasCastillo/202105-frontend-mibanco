@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { BankListService } from './services/bank-list.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferenciaComponent } from './transferencia/transferencia.component';
 import { HistorialComponent } from './historial/historial.component';
+import { PageServerErrorComponent } from './helpers/page-server-error.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { HistorialComponent } from './historial/historial.component';
     AppComponent,
     AddDestinatarioComponent,
     TransferenciaComponent,
-    HistorialComponent
+    HistorialComponent,
+    PageServerErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { HistorialComponent } from './historial/historial.component';
     ReactiveFormsModule
   ],
   providers: [BankListService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

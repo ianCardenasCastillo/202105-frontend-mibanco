@@ -1,7 +1,7 @@
-<div class="div-title-page">
+<div class="div-title-page" *ngIf="!error">
     <h1 class="h1-title-page">Historial</h1>
 </div>
-<table mat-table [dataSource]="transferencias" matSort class="mat-elevation-z8">
+<table mat-table [dataSource]="transferencias" matSort class="mat-elevation-z8" *ngIf="!error">
 
     <!-- Nombre Column -->
     <ng-container matColumnDef="nombre">
@@ -36,3 +36,7 @@
     <tr mat-header-row *matHeaderRowDef="columnas; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
 </table>
+
+<div *ngIf="error">
+    <app-error-message [message]="errorMessage"></app-error-message>
+</div>

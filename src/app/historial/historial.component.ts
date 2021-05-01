@@ -12,6 +12,8 @@ export class HistorialComponent implements AfterViewInit, OnInit {
   transferencias: Array<any> = [];
   columnas = ['nombre', 'rut', 'banco_id', 'tipo_cuenta', 'monto'];
   banks: Array<any> = [];
+  error = false;
+  errorMessage = '';
   constructor(public ripleyService: BancoRipleyService, public bankService: BankListService) {
 
   }
@@ -30,13 +32,18 @@ export class HistorialComponent implements AfterViewInit, OnInit {
   obtenerBancos(): void {
     this.bankService.getBanks().subscribe((response: HttpResponse<any>) => {
       if (response.status === 200) {
-        console.log('Bancos obtenidos: ' + response.statusText);
         this.banks = response.body.banks;
+        this.error = false;
       }
       if (response.status === 500) {
         console.error('No se pudo obtener la información');
+        this.setErrorMessage('Error interno del servicio bancos');
+        this.error = true;
       }
     });
+  }
+  setErrorMessage(message: string): void {
+    this.errorMessage = message;
   }
   ngAfterViewInit(): void {
     this.obtenerTransferencias();
@@ -44,8 +51,9 @@ export class HistorialComponent implements AfterViewInit, OnInit {
   obtenerTransferencias(): void {
     this.ripleyService.getTransferencias().subscribe((success: HttpResponse<any>) => {
       this.transferencias = success.body.transferencias;
-    }, (error) => {
-      console.error(error);
+    }, () => {
+      this.setErrorMessage('Error interno del servicio, no se pudo recuperar la información');
+      this.error = true;
     });
   }
 }

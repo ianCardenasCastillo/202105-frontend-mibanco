@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { error } from 'selenium-webdriver';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -50,25 +51,38 @@ export class AddDestinatarioComponent implements OnInit {
     ])
   });
   matcher = new MyErrorStateMatcher();
-  /* tslint:disable: variable-name */
-  constructor(private _snackBar: MatSnackBar, public bankService: BankListService, public ripleyService: BancoRipleyService) { }
-  /* tslint:enable */
+  error = false;
+  errorMessage = '';
+  constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
+    public bankService: BankListService,
+    public ripleyService: BancoRipleyService
+  ) { }
   ngOnInit(): void {
     this.obtenerBancos();
-    this.getTipoCuentas();
+    this.obtenerTipoCuentas();
   }
-  getTipoCuentas(): void {
+  setErrorMessage(message: string): void {
+    this.errorMessage = message;
+  }
+  obtenerTipoCuentas(): void {
     this.ripleyService.getTipoCuenta().subscribe((response: HttpResponse<any>) => {
       if (response.status === 200) {
         console.log('Tipos de Cuenta: ' + response.statusText);
         this.tipos = response.body.tipos;
+        this.error = false;
       }
       else {
         console.error('No se pudo obtener la información');
+        this.setErrorMessage('No se pudo obtener la información de tipos de cuenta');
+        this.error = true;
       }
     }, (errorResponse) => {
       if (errorResponse.status === 0) {
         console.error('Servicio no disponible. Error: ' + errorResponse.message);
+        this.setErrorMessage('Los servicios no se encuentran disponibles.');
+        this.error = true;
       }
     });
   }
@@ -77,9 +91,12 @@ export class AddDestinatarioComponent implements OnInit {
     this.bankService.getBanks().subscribe((response: HttpResponse<any>) => {
       if (response.status === 200) {
         this.banks = response.body.banks;
+        this.error = false;
       }
       if (response.status === 500) {
         console.error('No se pudo obtener la información');
+        this.setErrorMessage('Error interno del servicio bancos');
+        this.error = true;
       }
     });
   }
@@ -90,17 +107,20 @@ export class AddDestinatarioComponent implements OnInit {
         this.openSnackBar('Destinatario guardado correctamente', 'OK');
         this.destinatario = new Destinatario();
         this.resetFormGroup();
+        this.error = false;
       }
-    }, (error) => {
-      if (error.status === 404) {
-        this.openSnackBar('Servicio no encontrado', 'OK');
+    }, (errorResponse) => {
+      if (errorResponse.status === 404) {
+        this.error = true;
         return;
       }
-      if (error.status === 500) {
-        this.openSnackBar(error.error, 'OK');
+      if (errorResponse.status === 500) {
+        this.setErrorMessage('Error interno del banco');
+        this.error = true;
         return;
       }
-      this.openSnackBar('Servicio no disponible', 'OK');
+      this.setErrorMessage('Los servicios no se encuentran disponibles.');
+      this.error = true;
     });
   }
   resetFormGroup(): void {
@@ -114,7 +134,7 @@ export class AddDestinatarioComponent implements OnInit {
     this.destinatario.numeroCuenta = this.destinatarioForm.controls.cuenta.value;
   }
   openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       verticalPosition: 'top'
     });
   }

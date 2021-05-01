@@ -1,8 +1,7 @@
-<div class="div-title-page">
+<div class="div-title-page" *ngIf="!error">
     <h1 class="h1-title-page">Nuevo Destinatario</h1>
 </div>
-<div>
-
+<div *ngIf="!error">
     <mat-card class="card mat-elevation-z8">
     
         <mat-card-content *ngIf="banks">
@@ -108,4 +107,7 @@
             <button [disabled]="destinatarioForm.invalid" (click)="guardarDestinatario()" mat-raised-button class="button-width-50">Crear</button>
         </mat-card-actions>
     </mat-card>
+</div>
+<div *ngIf="error">
+    <app-error-message [message]="errorMessage"></app-error-message>
 </div>

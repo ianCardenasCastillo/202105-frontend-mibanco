@@ -1,8 +1,8 @@
-<div class="div-title-page">
+<div class="div-title-page" *ngIf="!error">
     <h1 class="h1-title-page">Transferir</h1>
 </div>
 
-<mat-card class="card mat-elevation-z8">
+<mat-card class="card mat-elevation-z8" *ngIf="!error">
 
     <mat-card-content>
         <mat-grid-list cols="4" rowHeight="80px" >
@@ -52,3 +52,7 @@
         <button [disabled]="transferenciaForm.invalid || destinatarioId==''" mat-raised-button (click)="transferir()" class="button-width-50">Transferir</button>
     </mat-card-actions>
 </mat-card>
+
+<div *ngIf="error">
+    <app-error-message [message]="errorMessage"></app-error-message>
+</div>
