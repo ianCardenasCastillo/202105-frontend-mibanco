@@ -1,27 +1,39 @@
-# TransRipley
+# Mi Banco
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+Este proyecto esta generado con [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Ejecute `ng serve` para un servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicacion se volvera a cargar automaticamente cuando se actualicen los archivos.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Ejecute `ng build` para construir el proyecto. Los archivos generados estaran en `dist/` . Use el `--prod` flag para un build de producción.
 
-## Running unit tests
+## Despliegue en Kubernetes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Para el despliegue del frontend Mi Banco en kubernetes debe ejecutar: `kubectl --context <contexto-cluster> apply -k ./` o `kubectl --context <contexto-cluster> apply -f ./mi-banco-deploy.yaml` junto con el servicio `kubectl --context <contexto-cluster> apply -f ./mi-banco-service.yaml`
 
-## Running end-to-end tests
+## Dockerfile
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+### STAGE 1: Build ###
+FROM node:15.10.0-alpine AS build
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build --prod
 
-## Further help
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/trans-ripley /usr/share/nginx/html
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Autores ✒️
+
+* **Ian Cárdenas Castillo** - *Desarrollo y Documentación* - [Ian Cárdenas C](https://github.com/ianCardenasCastillo)
+
+---
+⌨️ con ❤️ por [Ian Cárdenas C](https://github.com/ianCardenasCastillo) 😊
