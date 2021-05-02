@@ -2,6 +2,26 @@
 
 Este proyecto esta generado con [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
 
+## Funciones
+### Sing up / Sing in
+
+En Mi Banco usted podra registrarse de forma simple y utilizar nuestros servicios de transferencias
+
+### Añadir Destinatario
+
+En Mi Banco usted podra registrar destinatarios para poder realizar transferencias 
+
+### Transferir
+
+Transfiere a tus contactos en 3 simples pasos:
+- Busca y Selecciona
+- Ingresa Monto
+- Y Envia!
+
+### Historial
+
+Tambien podrás revisar el historial de trasnsferencias realizadas a tus destinatarios, a que banco, tipo de cuenta y monto transferido.
+
 ## Development server
 
 Ejecute `ng serve` para un servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicacion se volvera a cargar automaticamente cuando se actualicen los archivos.
