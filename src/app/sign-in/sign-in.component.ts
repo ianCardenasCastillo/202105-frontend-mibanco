@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { BancoRipleyService } from '../services/banco-ripley.service';
@@ -21,27 +22,38 @@ export class SignInComponent implements OnInit {
       Validators.pattern(this.regexRut)
     ]),
   });
-  constructor(private router: Router,public ripleyService: BancoRipleyService,public authService: AuthService) { }
+  constructor(
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public ripleyService: BancoRipleyService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
   }
-  login(){
+  login() {
     const login = {
       rut: this.singinForm.controls.rut.value,
       password: this.singinForm.controls.password.value
     }
-    this.ripleyService.postLogin(login).subscribe((success:HttpResponse<any>)=>{
-      if(success.status===200){
-        this.authService.saveUser(success.body.usuario)
+    this.ripleyService.postLogin(login).subscribe((success: HttpResponse<any>) => {
+      if (success.status === 200) {
+        this.openSnackBar('Login Correcto', 'OK');
+        this.authService.saveUser(success.body.usuario);
         this.authService.setLogged(true);
-        this.router.navigate(['destinatarios'])
+        this.router.navigate(['destinatarios']);
       }
-      else{
+      else {
         this.authService.setLogged(false);
-        console.log('Login Incorrecto')
+        this.openSnackBar('Login Incorrecto', 'OK');
+        console.log('Login Incorrecto');
       }
-    },(err)=>{
+    }, (err) => {
       console.error(err)
+    });
+  }
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      verticalPosition: 'top'
     });
   }
 
