@@ -7,8 +7,7 @@ import { BankListService } from '../services/bank-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { error } from 'selenium-webdriver';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -54,10 +53,10 @@ export class AddDestinatarioComponent implements OnInit {
   error = false;
   errorMessage = '';
   constructor(
-    private router: Router,
     private snackBar: MatSnackBar,
     public bankService: BankListService,
-    public ripleyService: BancoRipleyService
+    public ripleyService: BancoRipleyService,
+    public authService: AuthService
   ) { }
   ngOnInit(): void {
     this.obtenerBancos();
@@ -127,6 +126,7 @@ export class AddDestinatarioComponent implements OnInit {
     this.destinatarioForm.reset();
   }
   crearDestinatario(): void {
+    this.destinatario.usuario = this.authService.getUser()._id
     this.destinatario.rut = this.destinatarioForm.controls.rut.value;
     this.destinatario.nombre = this.destinatarioForm.controls.nombre.value;
     this.destinatario.correo = this.destinatarioForm.controls.correo.value;

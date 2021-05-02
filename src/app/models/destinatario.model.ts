@@ -11,6 +11,7 @@ export class Destinatario implements Deserializable {
     public bankId = '';
     public tipoCuenta = '';
     public numeroCuenta = '';
+    public usuario = '';
 
     deserialize(input: any): this {
         return Object.assign(this, input);

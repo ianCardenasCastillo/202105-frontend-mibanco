@@ -12,5 +12,6 @@
 }
 .div-buttons{
     width: 50%;
-    text-align: center;
+    text-align: left;
+    padding-left: 15px;
 }

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  API_URL_MI_BANCO: 'http://34.69.155.232/',
+  API_URL_BANCOS: 'https://bast.dev/'
 };
 
 /*

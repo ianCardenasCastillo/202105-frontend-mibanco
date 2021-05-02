@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTableModule } from '@angular/material/table';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +30,8 @@ import { TransferenciaComponent } from './transferencia/transferencia.component'
 import { HistorialComponent } from './historial/historial.component';
 import { PageServerErrorComponent } from './helpers/page-server-error.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     TransferenciaComponent,
     HistorialComponent,
     PageServerErrorComponent,
-    SignInComponent
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +62,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     MatListModule,
     ScrollingModule,
     MatTableModule,
+    MatMenuModule,
 
     FormsModule,
     ReactiveFormsModule
@@ -66,4 +71,6 @@ import { SignInComponent } from './sign-in/sign-in.component';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class AppModule { }
+

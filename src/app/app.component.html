@@ -1,11 +1,21 @@
 <mat-toolbar color="primary" >
+  
   <div class="div-title">
     <span>Mi Banco - Nueva Transferencia</span>
   </div>
-  <div class="button-row div-buttons">
+  <div class="button-row div-buttons" *ngIf="usuario">
     <button mat-raised-button routerLink="/destinatarios">Nuevo Destinatario</button>
     <button mat-raised-button routerLink="/transferencia">Transferir</button>
     <button mat-raised-button routerLink="/historial">Historial</button>
+  </div>
+  
+  <div *ngIf="usuario">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu  #menu="matMenu" >
+      <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesión</button>
+    </mat-menu>
   </div>
 
 </mat-toolbar>

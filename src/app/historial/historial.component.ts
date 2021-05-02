@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { BancoRipleyService } from '../services/banco-ripley.service';
 import { BankListService } from '../services/bank-list.service';
 
@@ -14,7 +15,10 @@ export class HistorialComponent implements AfterViewInit, OnInit {
   banks: Array<any> = [];
   error = false;
   errorMessage = '';
-  constructor(public ripleyService: BancoRipleyService, public bankService: BankListService) {
+  constructor(
+    public authService: AuthService,
+    public ripleyService: BancoRipleyService,
+    public bankService: BankListService) {
 
   }
   ngOnInit(): void {
@@ -49,7 +53,7 @@ export class HistorialComponent implements AfterViewInit, OnInit {
     this.obtenerTransferencias();
   }
   obtenerTransferencias(): void {
-    this.ripleyService.getTransferencias().subscribe((success: HttpResponse<any>) => {
+    this.ripleyService.getTransferencias(this.authService.getUser()._id).subscribe((success: HttpResponse<any>) => {
       this.transferencias = success.body.transferencias;
     }, () => {
       this.setErrorMessage('Error interno del servicio, no se pudo recuperar la información');

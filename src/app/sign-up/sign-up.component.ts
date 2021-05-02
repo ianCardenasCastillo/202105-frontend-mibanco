@@ -6,13 +6,17 @@ import { AuthService } from '../services/auth.service';
 import { BancoRipleyService } from '../services/banco-ripley.service';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignUpComponent implements OnInit {
+
   regexRut = /(\d{1,3}(?:\.\d{1,3}){2}-[\dkK])/gm;
-  singinForm = new FormGroup({ // FormGroup del formulario de ingreso de destinatario
+  singupForm = new FormGroup({ // FormGroup del formulario de ingreso de destinatario
+    username: new FormControl('', [
+      Validators.required,
+    ]),
     password: new FormControl('', [
       Validators.required,
     ]),
@@ -26,19 +30,20 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
   login(){
-    const login = {
-      rut: this.singinForm.controls.rut.value,
-      password: this.singinForm.controls.password.value
+    const registro = {
+      rut: this.singupForm.controls.rut.value,
+      username: this.singupForm.controls.username.value,
+      password: this.singupForm.controls.password.value
     }
-    this.ripleyService.postLogin(login).subscribe((success:HttpResponse<any>)=>{
-      if(success.status===200){
-        this.authService.saveUser(success.body.usuario)
+    this.ripleyService.postUsuario(registro).subscribe((success:HttpResponse<any>)=>{
+      if(success.status===201){
         this.authService.setLogged(true);
+        this.authService.saveUser(success.body.usuario)
         this.router.navigate(['destinatarios'])
       }
       else{
         this.authService.setLogged(false);
-        console.log('Login Incorrecto')
+        console.log('Registro Incorrecto')
       }
     },(err)=>{
       console.error(err)

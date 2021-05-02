@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Destinatario } from '../models/destinatario.model';
+import { AuthService } from '../services/auth.service';
 import { BancoRipleyService } from '../services/banco-ripley.service';
 import { BankListService } from '../services/bank-list.service';
 
@@ -29,7 +30,11 @@ export class TransferenciaComponent implements OnInit {
   busquedaControl = new FormControl(null, []);
   error = false;
   errorMessage = '';
-  constructor(private snackBar: MatSnackBar, public bankService: BankListService, public ripleyService: BancoRipleyService) { }
+  constructor(
+    public authService: AuthService,
+    private snackBar: MatSnackBar,
+    public bankService: BankListService,
+    public ripleyService: BancoRipleyService) { }
 
   ngOnInit(): void {
     this.obtenerBancos();
@@ -45,7 +50,8 @@ export class TransferenciaComponent implements OnInit {
       this.resetDetalle();
       return;
     }
-    this.ripleyService.getDestinatarios(this.busqueda).subscribe((success: HttpResponse<any>) => {
+
+    this.ripleyService.getDestinatarios(this.busqueda, this.authService.getUser()._id).subscribe((success: HttpResponse<any>) => {
       this.destinatarios = success.body.destinatarios;
     }, (error) => {
       console.error(error);
