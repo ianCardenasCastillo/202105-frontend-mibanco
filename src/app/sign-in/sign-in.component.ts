@@ -30,11 +30,11 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  login() {
+  login(): void {
     const login = {
       rut: this.singinForm.controls.rut.value,
       password: this.singinForm.controls.password.value
-    }
+    };
     this.ripleyService.postLogin(login).subscribe((success: HttpResponse<any>) => {
       if (success.status === 200) {
         this.openSnackBar('Login Correcto', 'OK');
@@ -48,7 +48,10 @@ export class SignInComponent implements OnInit {
         console.log('Login Incorrecto');
       }
     }, (err) => {
-      console.error(err)
+      console.error(err);
+      if (err.status === 0) {
+        this.openSnackBar('Servicio no disponible', 'OK');
+      }
     });
   }
   openSnackBar(message: string, action: string): void {

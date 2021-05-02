@@ -9,17 +9,17 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'trans-ripley';
-  @Input() usuario=false;
+  @Input() usuario = false;
   constructor(public authService: AuthService, public route: Router) {
     this.authService.isAuthenticated();
-    this.authService.getLogged().subscribe((result: boolean)=>{
+    this.authService.getLogged().subscribe((result: boolean) => {
       this.usuario = result;
-    })
+    });
   }
-  cerrarSesion(){
+  cerrarSesion(): void {
     this.authService.clearLogged();
     this.authService.setLogged(false);
-    this.route.navigate(['sign-in'])
+    this.route.navigate(['sign-in']);
 
   }
 }

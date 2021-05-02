@@ -126,7 +126,7 @@ export class AddDestinatarioComponent implements OnInit {
     this.destinatarioForm.reset();
   }
   crearDestinatario(): void {
-    this.destinatario.usuario = this.authService.getUser()._id
+    this.destinatario.usuario = this.authService.getUser()._id;
     this.destinatario.rut = this.destinatarioForm.controls.rut.value;
     this.destinatario.nombre = this.destinatarioForm.controls.nombre.value;
     this.destinatario.correo = this.destinatarioForm.controls.correo.value;

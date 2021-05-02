@@ -34,12 +34,12 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  login() {
+  registro(): void {
     const registro = {
       rut: this.singupForm.controls.rut.value,
       username: this.singupForm.controls.username.value,
       password: this.singupForm.controls.password.value
-    }
+    };
     this.ripleyService.postUsuario(registro).subscribe((success: HttpResponse<any>) => {
       if (success.status === 201) {
         this.openSnackBar('Registrado Correctamente', 'OK');
@@ -54,7 +54,11 @@ export class SignUpComponent implements OnInit {
         this.openSnackBar('No se pudo registrar', 'OK');
       }
     }, (err) => {
-      console.error(err)
+      console.error(err);
+      if (err.status === 0) {
+        this.openSnackBar('Servicio no disponible', 'OK');
+      }
+
     });
   }
   openSnackBar(message: string, action: string): void {

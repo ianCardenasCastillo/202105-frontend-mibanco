@@ -34,13 +34,13 @@ export class BancoRipleyService {
       observe: 'response'
     });
   }
-  getTransferencias(usuario:string): Observable<any> {
+  getTransferencias(usuario: string): Observable<any> {
     return this.http.get(this.baseLink + 'api/v1/transferencia?usuario=' + usuario, { observe: 'response' });
   }
-  postLogin(data:any): Observable<any>{
+  postLogin(data: any): Observable<any> {
     return this.http.post(this.baseLink + 'api/v1/login', data, { observe: 'response' });
   }
-  postUsuario(data:any): Observable<any>{
-    return this.http.post(this.baseLink + 'api/v1/usuario', data, {observe: 'response' });
+  postUsuario(data: any): Observable<any> {
+    return this.http.post(this.baseLink + 'api/v1/usuario', data, { observe: 'response' });
   }
 }
