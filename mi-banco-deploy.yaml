@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-mibanco
+  labels:
+    app: frontend-mibanco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-mibanco
+  template:
+    metadata:
+      labels:
+        app: frontend-mibanco
+    spec:
+      containers:
+      - name: frontend-mibanco
+        image: ticscardenas/frontend-mibanco:latest

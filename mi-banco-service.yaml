@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-mibanco-service
+spec:
+  type: ClusterIP
+  selector:
+    app: frontend-mibanco
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
